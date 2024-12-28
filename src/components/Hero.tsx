@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,8 +19,6 @@ const Hero = () => {
 
     const totalVideos = 4;
 
-    const videoRef = useRef<HTMLVideoElement>(null);
-
     const handleLoadVideos = () => {
         setLoadedVideos(loadedVideos + 1);
     };
@@ -30,7 +28,7 @@ const Hero = () => {
 
         setCurrentVideo((prevIndex) => (prevIndex % totalVideos) + 1);
 
-        await new Promise((resolve) => setTimeout(resolve, 800));
+        await new Promise((resolve) => setTimeout(resolve, 820));
         setMainVideo((currentVideo % totalVideos) + 1);
     };
 
@@ -94,7 +92,7 @@ const Hero = () => {
     });
 
     return (
-        <main className="h-screen relative">
+        <section className="h-screen relative">
             {isLoading && (
                 <div className=" size-full flex items-center justify-center absolute z-[100] bg-blue-100">
                     <div className="three-body">
@@ -128,7 +126,6 @@ const Hero = () => {
                         onClick={handleClick}
                     >
                         <video
-                            ref={videoRef}
                             src={getVideoSrc((currentVideo % totalVideos) + 1)}
                             muted
                             loop
@@ -142,7 +139,6 @@ const Hero = () => {
                         className="rounded-md absolute invisible absolute-center size-64 overflow-hidden transition-all duration-500 ease-in z-30"
                     >
                         <video
-                            ref={videoRef}
                             src={getVideoSrc(currentVideo)}
                             muted
                             loop
@@ -152,7 +148,6 @@ const Hero = () => {
                     </div>
 
                     <video
-                        ref={videoRef}
                         id="main-video"
                         src={getVideoSrc(mainVideo)}
                         muted
@@ -172,7 +167,7 @@ const Hero = () => {
             <h1 className="absolute bottom-5 right-5 special-font hero-heading text-black -z-10">
                 G<b>a</b>ming
             </h1>
-        </main>
+        </section>
     );
 };
 
