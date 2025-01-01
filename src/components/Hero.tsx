@@ -16,6 +16,7 @@ const Hero = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [hasClicked, setHasClicked] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [isCooldown, setIsCooldown] = useState(false);
 
     const totalVideos = 4;
 
@@ -24,12 +25,18 @@ const Hero = () => {
     };
 
     const handleClick = async () => {
+        if (isCooldown) return;
+        setIsCooldown(true);
         setHasClicked(true);
 
         setCurrentVideo((prevIndex) => (prevIndex % totalVideos) + 1);
 
         await new Promise((resolve) => setTimeout(resolve, 820));
         setMainVideo((currentVideo % totalVideos) + 1);
+
+        setTimeout(() => {
+            setIsCooldown(false);
+        }, 820);
     };
 
     useEffect(() => {
@@ -91,6 +98,8 @@ const Hero = () => {
         });
     });
 
+    useGSAP(() => {});
+
     return (
         <section className="h-screen relative">
             {isLoading && (
@@ -120,11 +129,12 @@ const Hero = () => {
                     <div
                         id="next-video"
                         className={twMerge(
-                            "rounded-md border-2 border-black scale-50 opacity-0 hover:scale-100 hover:opacity-100 cursor-pointer absolute absolute-center size-64 overflow-hidden transition-all duration-200 ease-in z-40",
+                            "transition-transform duration-300 ease-out rounded-md border-2 box-border scale-50 opacity-0 hover:scale-100 hover:opacity-100 cursor-pointer absolute absolute-center size-64 overflow-hidden z-40",
                             isTransitioning ? "hidden" : ""
                         )}
                         onClick={handleClick}
                     >
+                        diiv
                         <video
                             src={getVideoSrc((currentVideo % totalVideos) + 1)}
                             muted

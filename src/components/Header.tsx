@@ -29,13 +29,13 @@ const Header = () => {
     return (
         <header
             className={twMerge(
-                "overflow-x-hidden w-full z-50 text-blue-100 p-3 px-5 box-border fixed top-0 left-0 right-0 transition-all duration-300",
+                "w-full z-50 text-blue-100 p-3 px-5 box-border fixed top-0 left-0 transition-all duration-300",
                 isVisible ? "translate-y-0" : "-translate-y-full"
             )}
         >
             <div
                 className={twMerge(
-                    "flex items-center rounded-lg justify-between py-7 px-5 md:px-10 transition-all duration-300",
+                    "flex items-center rounded-lg justify-between flex-wrap py-7 px-5 md:px-10 transition-all duration-300",
                     lastScrollY > 10 ? "bg-black" : ""
                 )}
             >
